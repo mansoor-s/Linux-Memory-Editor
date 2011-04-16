@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/AdminTools.png</file>
+        <file>res/Antivirus.png</file>
+        <file>res/Close.png</file>
+        <file>res/RecycleBin.png</file>
+        <file>res/Search.png</file>
+        <file>res/RAM.png</file>
+        <file>res/History.png</file>
+        <file>res/Arrow.png</file>
+        <file>res/save.png</file>
+        <file>res/delete-black.png</file>
+        <file>res/delete-red.png</file>
+        <file>res/Open.png</file>
+        <file>res/play.png</file>
+        <file>res/stop.png</file>
+        <file>res/undo.png</file>
+        <file>res/add.png</file>
+        <file>res/forward.png</file>
+        <file>res/gear.png</file>
+    </qresource>
+</RCC>
