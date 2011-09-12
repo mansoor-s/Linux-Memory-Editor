@@ -19,19 +19,16 @@
 **********************************************************************************/
 #include "Memory.h"
 
-
-
-Memory::Memory ( pid_t pid)
+Memory::Memory (pid_t pid)
 {
-    m_pid = pid;
-
+	m_pid = pid;
 }
 
 /*
-    * Attach to the specified process
-    *
-    */
-bool Memory::attach ()
+ * Attach to the specified process
+ *
+ */
+unsigned int Memory::attach ()
 {
     try {
         int status;
@@ -49,9 +46,9 @@ bool Memory::attach ()
         }
     } catch(QString e) {
         qDebug() << e;
-        return false;
+        return 0;
     }
-    return true;
+    return 1;
 }
 
 /*
@@ -62,7 +59,7 @@ bool Memory::attach ()
   */
 void Memory::detach ()
 {
-    ptrace(PTRACE_DETACH, m_pid, NULL, NULL);
+	ptrace(PTRACE_DETACH, m_pid, NULL, NULL);
 }
 
 
@@ -73,10 +70,10 @@ void Memory::detach ()
   *
   */
 
-bool Memory::getValue (long addr, BYTE &buffer)
+unsigned int Memory::getValue (long addr, BYTE &buffer)
 {
     if(!attach())
-        return false;
+        return 0;
     long length = sizeof(buffer);
     long x = 0;
 
@@ -86,7 +83,7 @@ bool Memory::getValue (long addr, BYTE &buffer)
         x = ptrace(PTRACE_PEEKDATA, m_pid, addr + i * sizeof(long), NULL);
         if (errno != 0){
             detach();
-            return false;
+            return 0;
         }
         memcpy(buffer + i * sizeof(long), &x, sizeof(long));
 
@@ -97,20 +94,20 @@ bool Memory::getValue (long addr, BYTE &buffer)
         x = ptrace(PTRACE_PEEKDATA, m_pid, addr + i * sizeof(long), NULL);
         if (errno != 0){
             detach();
-            return false;
+            return 0;
 
         }
         memcpy(buffer + i * sizeof(long), &x, j);
     }
     detach();
-    return true;
+    return 1;
 }
 
-bool Memory::setValue (long addr, BYTE value, int type)
+unsigned int Memory::setValue (long addr, BYTE value, int type)
 {
     long length = sizeof(value);
     if(!attach())
-        return false;
+        return 0;
     long *x = new long[256];
 
     int i = 0;
@@ -120,7 +117,7 @@ bool Memory::setValue (long addr, BYTE value, int type)
         ptrace(PTRACE_POKEDATA, m_pid, addr + i*sizeof(long), x);
         if (errno != 0) {
             detach();
-            return false;
+            return 0;
         }
     }
 
@@ -129,17 +126,17 @@ bool Memory::setValue (long addr, BYTE value, int type)
         *x = ptrace(PTRACE_PEEKDATA, m_pid, addr, x);
         if (errno != 0) {
             detach();
-            return false;
+            return 0;
         }
     }
     memcpy(&x, value + i*sizeof(long), j);
     ptrace(PTRACE_POKEDATA, m_pid, addr + i*sizeof(long), x);
     if (errno != 0){
         detach();
-        return false;
+        return 0;
     }
     detach();
-    return true;
+    return 1;
 }
 
 
@@ -257,8 +254,9 @@ std::vector<VMA> Memory::vmaList(int scanAreas)
 VMA Memory::readVMA(VMA region)
 {
     try {
-        if(!attach()) {
-            throw(QString("Trying to read VMA but not attached to process!!"));
+        if(!attach())
+		  {
+			throw(QString("Trying to read VMA but not attached to process!!"));
         }
 
         char* file = new char[region.size()];

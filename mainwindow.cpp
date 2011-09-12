@@ -25,51 +25,50 @@ ui(new Ui::MainWindow)
     // to get the results of the completed scan
     connect(scanner, SIGNAL(setResults(std::vector<Result>)) , this, SLOT(scanFinished(std::vector<Result>)), Qt::AutoConnection);
 
-
     ui->pushButton_next->setDisabled(true);
     ui->pushButton_stop->setDisabled(true);
     ui->pushButton_undo->setDisabled(true);
-
-
     ui->progressBar->setValue(0);
 
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete ui;
 }
 
 void MainWindow::changeEvent(QEvent *e)
 {
-    QMainWindow::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        ui->retranslateUi(this);
-        break;
-    default:
-        break;
-    }
+	QMainWindow::changeEvent(e);
+
+		switch (e->type())
+		{
+			case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+			default:
+				
+			break;
+		}
+
 }
 
 void MainWindow::setTarget(QMap<int, QString> target)
 {
-
-    targetProc = target;
+	targetProc = target;
 }
 
 void MainWindow::showProcessList()
 {
-    ProcessList* pl = new ProcessList(this);
-    pl->setModal(true);
-    pl->show();
-
+	ProcessList* pl = new ProcessList(this);
+	pl->setModal(true);
+	pl->show();
 }
 
 
 void MainWindow::enableScan()
 {
-    ui->pushButton_scan->setEnabled(true);
+   ui->pushButton_scan->setEnabled(true);
 }
 
 
@@ -180,31 +179,33 @@ void MainWindow::firstScan()
 
 void MainWindow::nextScan()
 {
-    //((Result)foundAddresses->at(1)).getData()
-
+   //((Result)foundAddresses->at(1)).getData()
 }
 
 void MainWindow::scanFinished(std::vector<Result> results)
 {
-    for(int i = 0; i < results.size(); i++) {
-        QTableWidgetItem *address = new QTableWidgetItem(QString::number(static_cast<Result>(results.at(i)).baseAddr(),16));
-        QTableWidgetItem *currentValue = new QTableWidgetItem(QString((char*)static_cast<Result>(results.at(i)).data()));
-        ui->tableWidget->setItem(i,0,address);
-        ui->tableWidget->setItem(i,1,currentValue);
-    }
-    ui->pushButton_next->setEnabled(true);
+
+		for(int i = 0; i < results.size(); i++)
+		{
+			QTableWidgetItem *address = new QTableWidgetItem(QString::number(static_cast<Result>(results.at(i)).baseAddr(),16));
+			QTableWidgetItem *currentValue = new QTableWidgetItem(QString((char*)static_cast<Result>(results.at(i)).data()));
+			ui->tableWidget->setItem(i,0,address);
+			ui->tableWidget->setItem(i,1,currentValue);
+		}
+
+	ui->pushButton_next->setEnabled(true);
 
 }
 
 void MainWindow::scanFailed(std::string errorMsg)
 {
-    error(QString(errorMsg.c_str()));
+	error(QString(errorMsg.c_str()));
 }
 
 void MainWindow::error(QString message)
 {
-    QMessageBox info;
-    info.setIcon(QMessageBox::Critical);
-    info.setText(message);
-    info.exec();
+	QMessageBox info;
+	info.setIcon(QMessageBox::Critical);
+	info.setText(message);
+	info.exec();
 }

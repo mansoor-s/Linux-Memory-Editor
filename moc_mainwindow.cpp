@@ -67,9 +67,9 @@ const QMetaObject *MainWindow::metaObject() const
 
 void *MainWindow::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_MainWindow))
-        return static_cast<void*>(const_cast< MainWindow*>(this));
+		 if (!_clname) return 0;
+		 if (!strcmp(_clname, qt_meta_stringdata_MainWindow))
+			  return static_cast<void*>(const_cast< MainWindow*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 
@@ -97,13 +97,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void MainWindow::startNewScan(int _t1, BYTE _t2, int _t3, int _t4)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+   void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
+   QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
 void MainWindow::stopScan()
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, 0);
+	QMetaObject::activate(this, &staticMetaObject, 1, 0);
 }
+
 QT_END_MOC_NAMESPACE

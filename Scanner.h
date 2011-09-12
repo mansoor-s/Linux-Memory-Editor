@@ -3,11 +3,11 @@
 
 #include <vector>
 #include <QThread>
+
 #include "Global.h"
 #include "VMA.h"
 #include "Result.h"
 #include "Memory.h"
-
 
 class Scanner : public QThread
 {
