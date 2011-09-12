@@ -1,14 +1,16 @@
-#include "Scanner.h"
 #include <QDebug>
 #include <exception>
+
+#include "Scanner.h"
 
 using namespace std;
 /*
 *
 */
-Scanner::Scanner () {
-    s_stop = false;
-    s_results = new std::vector<Result>;
+Scanner::Scanner ()
+{
+	s_stop = false;
+	s_results = new std::vector<Result>;
 }
 
 /*
@@ -19,9 +21,7 @@ void Scanner::run ()
 {
     // We'll just start the event loop here and call all of the required methods via signals
     exec();
-
 }
-
 
 /*
 *   first cache the entire Virtual Memory Area and then scan it so
@@ -33,7 +33,7 @@ void Scanner::newScan (int pid, BYTE key, int type, int operation)
     try {
         //s_pid = pid; s_type = type;
         Memory memory(pid);
-        long length = 4;//sizeof(key);
+        unsigned long length = 4;//sizeof(key);
 
         std::vector<VMA> areas = memory.vmaList(REGION_ALL);
 
@@ -43,7 +43,7 @@ void Scanner::newScan (int pid, BYTE key, int type, int operation)
         }
         // go over every virtual memory area
         for(unsigned long i = 0; i < areas.size() ; i++) {
-            if(s_stop == true) {
+            if(s_stop) {
                 break;
             }
             // no point in scanning a VMA too small to contain the key
@@ -59,7 +59,7 @@ void Scanner::newScan (int pid, BYTE key, int type, int operation)
             // this loop incrementaly goes over every byte of the VMA and compares
             // in sets of sizeof(key) bytes
             for(unsigned long j = 0; j < ee.size() - length; j++ ) {
-                if(s_stop == true) {
+                if(s_stop) {
                     break;
                 }
                 //copy sizeof(key) bytes from the vma data
@@ -72,11 +72,11 @@ void Scanner::newScan (int pid, BYTE key, int type, int operation)
             }
         }
 
-        if(s_stop != true)
+        if(!s_stop)
             emit setResults(*s_results);
 
         //reset the stop switch
-        s_stop = false;
+        s_stop = 0;
 
     } catch(bad_alloc&) {
         qDebug() << "failed at memory alloc";
@@ -93,5 +93,5 @@ void Scanner::scan (BYTE key, int operation)
 
 void Scanner::stop ()
 {
-    s_stop = true;
+   s_stop= 1;
 }

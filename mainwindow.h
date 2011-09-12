@@ -3,17 +3,16 @@
 
 #include <QMainWindow>
 #include <QThreadPool>
-#include "ProcessList.h"
 #include <QList>
-#include "Memory.h"
-#include "VMA.h"
-#include "Result.h"
-#include "Scanner.h"
 #include <QtConcurrentMap>
 #include <stdlib.h>
 #include <QMessageBox>
 
-
+#include "ProcessList.h"
+#include "Memory.h"
+#include "VMA.h"
+#include "Result.h"
+#include "Scanner.h"
 
 namespace Ui {
     class MainWindow;

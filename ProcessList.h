@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QMap>
 #include <stdio.h>
+
 namespace Ui {
     class ProcessList;
 }
