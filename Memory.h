@@ -10,22 +10,23 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <vector>
-#include "VMA.h"
-#include "Global.h"
-#include "Result.h"
-//#define _XOPEN_SOURCE 500
 #include <unistd.h>
 #include <fcntl.h>
 #include <QString>
 #include <QDebug>
 
+#include "VMA.h"
+#include "Global.h"
+#include "Result.h"
+
+//#define _XOPEN_SOURCE 500
 
 class Memory {
 
 public:
     Memory(pid_t pid);
-	bool setValue (long, BYTE, int);
-	bool getValue (long, BYTE &);
+	bool setValue (long, BYTE, int); // int fastest
+	bool getValue (long, BYTE &); // int fastest
     //lock value
     // lock and allow only greater than
     // lock and allow smaller than only

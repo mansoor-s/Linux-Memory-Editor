@@ -55,59 +55,82 @@ const QMetaObject Scanner::staticMetaObject = {
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &Scanner::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &Scanner::getStaticMetaObject()
+{
+	return staticMetaObject;
+}
 #endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *Scanner::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
 void *Scanner::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_Scanner))
-        return static_cast<void*>(const_cast< Scanner*>(this));
-    return QThread::qt_metacast(_clname);
+
+		if (!_clname) return 0;
+		if (!strcmp(_clname, qt_meta_stringdata_Scanner))
+
+	return static_cast<void*>(const_cast< Scanner*>(this));
+	return QThread::qt_metacast(_clname);
 }
 
 int Scanner::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QThread::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: setProgress((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: setResults((*reinterpret_cast< std::vector<Result>(*)>(_a[1]))); break;
-        case 2: scanFailed((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 3: newScan((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< BYTE(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
-        case 4: stop(); break;
-        default: ;
-        }
-        _id -= 5;
-    }
-    return _id;
+	_id = QThread::qt_metacall(_c, _id, _a);
+
+		if (_id < 0)
+		{
+			return _id;
+		}
+
+		if (_c == QMetaObject::InvokeMetaMethod)
+		{
+			switch (_id)
+			{
+				case 0:
+					setProgress((*reinterpret_cast< int(*)>(_a[1])));
+				break;
+				case 1:
+					setResults((*reinterpret_cast< std::vector<Result>(*)>(_a[1])));
+				break;
+				case 2:
+					scanFailed((*reinterpret_cast< std::string(*)>(_a[1])));
+				break;
+				case 3:
+					newScan((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< BYTE(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4])));
+				break;
+				case 4:
+					stop();
+				break;
+				default: ;
+			}
+		_id -= 5;
+		}
+
+	return _id;
 }
 
 // SIGNAL 0
 void Scanner::setProgress(int _t1)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+	void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+	QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
 void Scanner::setResults(std::vector<Result> _t1)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+	void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+	QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
 void Scanner::scanFailed(std::string _t1)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+	void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+	QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
+
 QT_END_MOC_NAMESPACE
